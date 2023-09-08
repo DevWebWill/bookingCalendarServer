@@ -1,0 +1,56 @@
+# Version of Docker-compose
+version: '1.0'
+services:
+  # Service name
+  node:
+    container_name: booking_calendar_node
+    restart: always
+    # Creating a custom image
+    build:
+      # Location to the Dockerfile
+      context: .
+      # Name of the Dockerfile
+      dockerfile: Dockerfile
+    ports:
+        # External port:Internal port
+      - 3001:3000
+    links:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    
+    # working_dir: /usr/src/app
+    # volumes:
+    #   - ./:/usr/src/app
+
+  mongo:
+    container_name: booking_calendar_database
+    image: mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    logging:
+      driver: none
+    volumes:
+      - ../mongo:/data/db
+
+  jenkins:
+    container_name: booking_calendar_jenkins
+    image: jenkins/jenkins
+    restart: always
+    ports:
+        # External port:Internal port
+      - 8082:8080
+      - 50000:50000
+    volumes:
+      - ../jenkins_home:/var/jenkins_home
+    # environment:
+    #   - JENKINS_OPTS="--httpPort=8082"  # Cambiado el puerto interno a 8080
+    networks:
+      - net_jenkins
+volumes:
+  jenkins_home:
+networks:
+  net_jenkins:
+  

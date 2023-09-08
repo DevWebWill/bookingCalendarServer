@@ -42,22 +42,22 @@ services:
     ports:
       - "8081:80"
 
-#   jenkins:
-#     container_name: booking_calendar_jenkins
-#     image: jenkins/jenkins
-#     restart: always
-#     ports:
-#         # External port:Internal port
-#       - 8082:8080
-#       - 50000:50000
-#     volumes:
-#       - ../jenkins_home:/var/jenkins_home
-#     # environment:
-#     #   - JENKINS_OPTS="--httpPort=8082"  # Cambiado el puerto interno a 8080
-#     networks:
-#       - net_jenkins
-# volumes:
-#   jenkins_home:
-# networks:
-#   net_jenkins:
+  jenkins:
+    container_name: booking_calendar_jenkins
+    image: jenkins/jenkins
+    restart: always
+    ports:
+        # External port:Internal port
+      - 8082:8080
+      - 50000:50000
+    volumes:
+      - ../jenkins_home:/var/jenkins_home
+    # environment:
+    #   - JENKINS_OPTS="--httpPort=8082"  # Cambiado el puerto interno a 8080
+    networks:
+      - net_jenkins
+volumes:
+  jenkins_home:
+networks:
+  net_jenkins:
   

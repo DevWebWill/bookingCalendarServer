@@ -58,6 +58,7 @@ services:
       - ../jenkins_home:/var/jenkins_home
       - /usr/local/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
+      - /docker-compose.yml:/dc
     #  - ./jenkins/install-docker-compose.sh:/usr/local/bin/install-docker-compose.sh
     #entrypoint: /bin/bash -c "chmod +x /usr/local/bin/install-docker-compose.sh && /usr/local/bin/install-docker-compose.sh && /usr/local/bin/jenkins.sh"
   # ... otras configuraciones ...

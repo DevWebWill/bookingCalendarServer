@@ -16,8 +16,8 @@ pipeline {
             steps {
                 sh '''
                     CURRENT_USER=$(whoami)
-                    sudo usermod -aG docker $CURRENT_USER
-                    sudo service docker restart  # Reinicia el servicio Docker
+                    usermod -aG docker $CURRENT_USER
+                    service docker restart  # Reinicia el servicio Docker
                 '''
             }
         }

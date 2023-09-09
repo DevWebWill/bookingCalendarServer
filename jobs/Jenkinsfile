@@ -12,6 +12,15 @@ pipeline {
         name_final = "booking_calendar_node"
     }
     stages {
+        stage('Configurar permisos de Docker') {
+            steps {
+                script {
+                    def currentUsername = sh(script: 'whoami', returnStdout: true).trim()
+                    // Cambiar el usuario de Jenkins al grupo docker
+                    sh "usermod -aG docker ${currentUsername}"
+                }
+            }
+        }
         stage('stop/rm') {
             when {
                 expression { 

@@ -16,6 +16,9 @@ pipeline {
             steps {
                 script{
                     sh 'docker-compose -f /docker-compose/docker-compose.yml stop node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop mongo'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml rm node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml rm mongo'
                 }    
             }                                          
         }   
@@ -32,7 +35,8 @@ pipeline {
                     ''' */
                     
                     /* sh 'docker-compose -f /home/debian/bookingCalendarServer/docker-compose.yml restart node' */
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml start node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d mongo'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d node'
                     
                 }  
             }                                              

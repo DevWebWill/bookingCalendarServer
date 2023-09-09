@@ -30,17 +30,17 @@ pipeline {
         stage('restart') {
             steps {
                 script{
-                    def dockerComposeDir = sh(script: 'dirname /home/debian/bookingCalendarServer/docker-compose.yml', returnStdout: true).trim()
-                    echo "Directorio del archivo docker-compose.yml: $dockerComposeDir"
+                    //def dockerComposeDir = sh(script: 'dirname /home/debian/bookingCalendarServer/docker-compose.yml', returnStdout: true).trim()
+                    //echo "Directorio del archivo docker-compose.yml: $dockerComposeDir"
                     /* sh ''' 
                     docker build    jobs/dockerweb/ -t ${name_imagen}:${tag_imagen}
                     ''' */
                     /* sh ''' 
                     docker-compose restart node
                     ''' */
-                    dir(dockerComposeDir) {
-                        sh 'docker-compose restart node'
-                    }
+                    
+                    sh 'docker-compose -f /home/debian/bookingCalendarServer/docker-compose.yml restart node'
+                    
                 }  
             }                                              
         }

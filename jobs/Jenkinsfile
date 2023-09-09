@@ -15,8 +15,8 @@ pipeline {
         stage('stop') {
             steps {
                 script{
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop booking_calendar_node'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop booking_calendar_database'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop mongo'
                     sh 'docker-compose -f /docker-compose/docker-compose.yml rm booking_calendar_node'
                     sh 'docker-compose -f /docker-compose/docker-compose.yml rm booking_calendar_database'
                 }    

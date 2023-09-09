@@ -46,8 +46,10 @@ services:
 # No he encontrado la forma de ejecutar docker-compose desde el contenedor de jenkins en la maquina padre
   jenkins:
     container_name: booking_calendar_jenkins
-    image: jenkins/jenkins
+    #image: jenkins/jenkins
     restart: always
+    build:
+      context: ./jenkins
     ports:
         # External port:Internal port
       - 8080:8080

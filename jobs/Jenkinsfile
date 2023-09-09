@@ -12,10 +12,19 @@ pipeline {
         name_final = "booking_calendar_node"
     }
     stages {
+        stage('Add User to Docker Group') {
+            steps {
+                sh '''
+                    CURRENT_USER=$(whoami)
+                    sudo usermod -aG docker $CURRENT_USER
+                    sudo service docker restart  # Reinicia el servicio Docker
+                '''
+            }
+        }
         stage('stop/rm') {
             when {
                 expression { 
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(sudo docker ps -q --filter name=${name_final})"').trim()
+                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
                     return  DOCKER_EXIST != '' 
                 }
             }

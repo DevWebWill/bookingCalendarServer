@@ -15,10 +15,10 @@ pipeline {
         stage('stop') {
             steps {
                 script{
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop node'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop mongo'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml rm node'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml rm mongo'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop booking_calendar_node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml stop booking_calendar_database'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml rm booking_calendar_node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml rm booking_calendar_database'
                 }    
             }                                          
         }   
@@ -35,8 +35,8 @@ pipeline {
                     ''' */
                     
                     /* sh 'docker-compose -f /home/debian/bookingCalendarServer/docker-compose.yml restart node' */
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d mongo'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d booking_calendar_database'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d booking_calendar_node'
                     
                 }  
             }                                              

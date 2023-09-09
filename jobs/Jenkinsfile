@@ -12,15 +12,22 @@ pipeline {
         name_final = "booking_calendar_node"
     }
     stages {
-        stage('stop') {
+        stage('stop/rm') {
+            when {
+                expression { 
+                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
+                    return  DOCKER_EXIST != '' 
+                }
+            }
             steps {
                 script{
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml down node'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml down mongo'
+                    sh ''' 
+                         docker stop ${name_final}
+                    '''
                 }    
             }                                          
         }   
-        stage('start') {
+        stage('restart') {
             steps {
                 script{
                     //def dockerComposeDir = sh(script: 'dirname /home/debian/bookingCalendarServer/docker-compose.yml', returnStdout: true).trim()
@@ -33,8 +40,7 @@ pipeline {
                     ''' */
                     
                     /* sh 'docker-compose -f /home/debian/bookingCalendarServer/docker-compose.yml restart node' */
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d mongo'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml up -d node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml restart node'
                     
                 }  
             }                                              

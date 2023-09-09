@@ -12,7 +12,7 @@ pipeline {
         name_final = "booking_calendar_node"
     }
     stages {
-        stage('Configurar permisos de Docker') {
+        /* stage('Configurar permisos de Docker') {
             steps {
                 script {
                     def currentUsername = sh(script: 'whoami', returnStdout: true).trim()
@@ -20,11 +20,11 @@ pipeline {
                     sh "usermod -aG docker ${currentUsername}"
                 }
             }
-        }
+        } */
         stage('stop/rm') {
             when {
                 expression { 
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
+                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(sudo docker ps -q --filter name=${name_final})"').trim()
                     return  DOCKER_EXIST != '' 
                 }
             }

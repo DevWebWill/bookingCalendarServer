@@ -39,7 +39,8 @@ pipeline {
                     docker-compose restart node
                     ''' */
                     
-                    sh 'docker-compose -f /home/debian/bookingCalendarServer/docker-compose.yml restart node'
+                    /* sh 'docker-compose -f /home/debian/bookingCalendarServer/docker-compose.yml restart node' */
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml restart node'
                     
                 }  
             }                                              

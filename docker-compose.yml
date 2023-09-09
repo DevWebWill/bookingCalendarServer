@@ -35,12 +35,12 @@ services:
     volumes:
       - ../mongo:/data/db
 
-  nginx:
-    restart: always
-    build:
-      context: ./.nginx
-    ports:
-      - "8081:80"
+  #nginx:
+  #  restart: always
+  #  build:
+  #    context: ./.nginx
+  #  ports:
+  #    - "8081:80"
 
   jenkins:
     container_name: booking_calendar_jenkins

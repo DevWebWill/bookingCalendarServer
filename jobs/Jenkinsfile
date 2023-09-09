@@ -15,8 +15,8 @@ pipeline {
         stage('stop') {
             steps {
                 script{
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml down -v -t 0 --rmi all --remove-orphans node'
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml down -v -t 0 --rmi all --remove-orphans mongo'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml down node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml down mongo'
                 }    
             }                                          
         }   

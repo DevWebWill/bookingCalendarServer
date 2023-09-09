@@ -4,6 +4,7 @@ services:
   # Service name
   node:
     container_name: booking_calendar_node
+    image: booking_calendar_node_image
     restart: always
     # Creating a custom image
     build:

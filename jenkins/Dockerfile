@@ -1,4 +1,6 @@
-FROM jenkins/jenkins:latest
+FROM jenkins/jenkins
+
+USER root
 
 RUN apt-get update
 

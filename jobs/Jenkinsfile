@@ -12,31 +12,16 @@ pipeline {
         name_final = "booking_calendar_node"
     }
     stages {
-        stage('Add User to Docker Group') {
-            steps {
-                sh '''
-                    CURRENT_USER=$(whoami)
-                    usermod -aG docker $CURRENT_USER
-                    service docker restart  # Reinicia el servicio Docker
-                '''
-            }
-        }
-        stage('stop/rm') {
-            when {
-                expression { 
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
-                    return  DOCKER_EXIST != '' 
-                }
-            }
+        stage('stop') {
             steps {
                 script{
                     sh ''' 
-                         docker stop ${name_final}
+                         sh 'docker-compose -f /docker-compose/docker-compose.yml stop node'
                     '''
                 }    
             }                                          
         }   
-        stage('restart') {
+        stage('start') {
             steps {
                 script{
                     //def dockerComposeDir = sh(script: 'dirname /home/debian/bookingCalendarServer/docker-compose.yml', returnStdout: true).trim()
@@ -49,7 +34,7 @@ pipeline {
                     ''' */
                     
                     /* sh 'docker-compose -f /home/debian/bookingCalendarServer/docker-compose.yml restart node' */
-                    sh 'docker-compose -f /docker-compose/docker-compose.yml restart node'
+                    sh 'docker-compose -f /docker-compose/docker-compose.yml start node'
                     
                 }  
             }                                              

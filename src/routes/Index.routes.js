@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     
     //res.send(users)
 
-    res.send(user.username)
+    res.send(user)
 });
 
 //router.use("/demo", demoRoutes);

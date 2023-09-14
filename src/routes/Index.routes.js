@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
     let user = await User.findOne({ email: 'pepe@gmail.com'});
     
     //res.send(users)
+    console.log(user);
 
     res.send(user)
 });

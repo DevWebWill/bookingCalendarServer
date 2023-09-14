@@ -12,10 +12,13 @@ import { list } from '../controllers/Task.controller.js';
 import createSlug from '../controllers/utils.js';
 import User from '../models/User.model.js';
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     //res.send('Prueba para Jenkins!')
-    let users = User.find();
-    res.send(users)
+    let user = await User.findOne({ email: 'pepe@gmail.com'});
+    
+    //res.send(users)
+
+    res.send(user.username)
 });
 
 //router.use("/demo", demoRoutes);

@@ -15,8 +15,8 @@ services:
     ports:
         # External port:Internal port
       - 3000:3000
-    links:
-      - mongo
+    # links:
+    #   - mongo
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules

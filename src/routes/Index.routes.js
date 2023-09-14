@@ -10,9 +10,12 @@ import taskRoutes from "./Task.routes.js"
 
 import { list } from '../controllers/Task.controller.js';
 import createSlug from '../controllers/utils.js';
+import User from '../models/User.model.js';
 
 router.get('/', (req, res) => {
-    res.send('Prueba para Jenkins!')
+    //res.send('Prueba para Jenkins!')
+    let users = User.find();
+    res.send(users)
 });
 
 //router.use("/demo", demoRoutes);

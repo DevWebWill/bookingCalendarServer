@@ -4,10 +4,10 @@ import bcrypt from "bcrypt";
 import createSlug from "./utils.js";
 
 export const register = async (req, res) => {
-    const { email, first_name, password, password_confirm } = req.body;
+    const { email, name, password, password_confirm } = req.body;
     
     //Validación para verificar que existen los parámetros necesarios
-    if(!email || !first_name || !password || !password_confirm) {
+    if(!email || !name || !password || !password_confirm) {
         return res.status(422).json({'message': 'Invalid fields'});
     }
 
@@ -30,10 +30,10 @@ export const register = async (req, res) => {
             let hashedPassword = await bcrypt.hash(password, 10);
 
             const dbUser = new User({
-                username: first_name,
-                slug: createSlug(first_name),
+                username: name,
+                slug: createSlug(name),
                 email: email,
-                first_name: first_name,
+                first_name: name,
                 password: hashedPassword,
                 roles: ['ROLE_ADMIN']
             });

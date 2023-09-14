@@ -25,16 +25,17 @@ services:
     # volumes:
     #   - ./:/usr/src/app
 
-  mongo:
-    container_name: booking_calendar_database
-    image: mongo
-    restart: always
-    ports:
-      - "27018:27017"
-    logging:
-      driver: none
-    volumes:
-      - ../mongo:/data/db
+  # Funciona OK mongo en servidor local
+  # mongo:
+  #   container_name: booking_calendar_database
+  #   image: mongo
+  #   restart: always
+  #   ports:
+  #     - "27018:27017"
+  #   logging:
+  #     driver: none
+  #   volumes:
+  #     - ../mongo:/data/db
 
   #nginx:
   #  restart: always
@@ -44,30 +45,30 @@ services:
   #    - "8081:80"
 
 # No he encontrado la forma de ejecutar docker-compose desde el contenedor de jenkins en la maquina padre
-  jenkins:
-    container_name: booking_calendar_jenkins
-    #image: jenkins/jenkins
-    restart: always
-    build:
-      context: ./jenkins
-    ports:
-        # External port:Internal port
-      - 8080:8080
-      - 50000:50000
-    volumes:
-      - ../jenkins_home:/var/jenkins_home
-      - /usr/local/bin/docker:/usr/bin/docker
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker-compose.yml:/docker-compose/docker-compose.yml
-    #  - ./jenkins/install-docker-compose.sh:/usr/local/bin/install-docker-compose.sh
-    #entrypoint: /bin/bash -c "chmod +x /usr/local/bin/install-docker-compose.sh && /usr/local/bin/install-docker-compose.sh && /usr/local/bin/jenkins.sh"
-  # ... otras configuraciones ...
-    # environment:
-    #   - JENKINS_OPTS="--httpPort=8082"  # Cambiado el puerto interno a 8080
-    networks:
-      - net_jenkins
-volumes:
-  jenkins_home:
-networks:
-  net_jenkins:
+  # jenkins:
+  #   container_name: booking_calendar_jenkins
+  #   #image: jenkins/jenkins
+  #   restart: always
+  #   build:
+  #     context: ./jenkins
+  #   ports:
+  #       # External port:Internal port
+  #     - 8080:8080
+  #     - 50000:50000
+  #   volumes:
+  #     - ../jenkins_home:/var/jenkins_home
+  #     - /usr/local/bin/docker:/usr/bin/docker
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./docker-compose.yml:/docker-compose/docker-compose.yml
+  #   #  - ./jenkins/install-docker-compose.sh:/usr/local/bin/install-docker-compose.sh
+  #   #entrypoint: /bin/bash -c "chmod +x /usr/local/bin/install-docker-compose.sh && /usr/local/bin/install-docker-compose.sh && /usr/local/bin/jenkins.sh"
+  # # ... otras configuraciones ...
+  #   # environment:
+  #   #   - JENKINS_OPTS="--httpPort=8082"  # Cambiado el puerto interno a 8080
+  #   networks:
+  #     - net_jenkins
+# volumes:
+#   jenkins_home:
+# networks:
+#   net_jenkins:
   

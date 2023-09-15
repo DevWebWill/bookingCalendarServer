@@ -30,7 +30,48 @@ export const list = async (req, res, company) => {
 export const create = async (req, res) => {
     let docs = req.body;
 
-    const Task = mongoose.model('Task');
+    let nonexistenceArray = [];
+    let existenceArray = [];
+
+    for (const element of docs) {
+        try {
+            const item = await Task.exists({user: element.user, date: element.date}).exec();
+            console.log('Existe: ', item);
+            if (item) {
+                existenceArray.push(element);
+            } else {
+                nonexistenceArray.push(element);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    
+    console.log('Array: ', nonexistenceArray)
+    if(nonexistenceArray.length > 0) {
+        await Task.insertMany(nonexistenceArray)
+        .then((data) => {
+            return res.json({
+                status: 'Success',
+                data: data,
+                message: 'Horarios de reservas cargados con éxito.'
+            });
+        })
+        .catch((error) => {
+            return res.json({
+                status: 'Failed',
+                data: error,
+                message: 'Error al intentar guardar.'
+            });
+        });
+    } else {
+        return res.json({
+            status: 'Failed',
+            data: 'Nada para insertar',
+            message: 'No se pudo guardar. El horario ya estaba disponible.'
+        })
+    }
+    /* const Task = mongoose.model('Task');
     await Task.insertMany(docs)
         .then((data) => {
             return res.json({
@@ -45,7 +86,13 @@ export const create = async (req, res) => {
                 data: error,
                 message: 'Error al intentar guardar.'
             });
-        });  
+        });   */
+
+        /* return res.json({
+            status: 'Success',
+            data: 'hola',
+            message: 'Archivo eliminado con éxito'
+        }) */
 }
 
 export const update = async (req, res) => {

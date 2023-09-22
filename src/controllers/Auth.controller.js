@@ -2,6 +2,7 @@ import User from "../models/User.model.js"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import createSlug from "./utils.js";
+import { transporter } from "../config/mailer.js";
 
 export const register = async (req, res) => {
     const { email, name, password, password_confirm } = req.body;
@@ -99,6 +100,8 @@ export const login = async (req, res) => {
                         if(err) return res.json({message: err})
 
                         res.cookie('secret_token', token, { httpOnly: true, maxAge: 24*60*60*1000 });
+
+                        main().catch(console.error);
 
                         return res.json({
                             full_record: full_record,
@@ -235,3 +238,27 @@ export const user = async (req, res) => {
     const user = req.user;
     return res.status(200).json(user);
 }
+
+// async..await is not allowed in global scope, must use a wrapper
+async function main() {
+    // send mail with defined transport object
+    await transporter.sendMail({
+        from: '"Booxita" <soporte@booxita.com>', // sender address
+        //to: "dev.web.will@gmail.com, baz@example.com", // list of receivers
+        to: "dev.web.will@gmail.com", // list of receivers
+        subject: "Alerta de inicio de sesión", // Subject line
+        //text: "Se ha iniciado sesión en Booxita", // plain text body
+        html: "<b>Se ha iniciado sesión en Booxita.</b>", // html body
+    });
+  
+    //console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  
+    //
+    // NOTE: You can go to https://forwardemail.net/my-account/emails to see your email delivery status and preview
+    //       Or you can use the "preview-email" npm package to preview emails locally in browsers and iOS Simulator
+    //       <https://github.com/forwardemail/preview-email>
+    //
+  }
+  
+  

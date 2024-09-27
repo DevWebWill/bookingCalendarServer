@@ -5,7 +5,7 @@ services:
   node:
     container_name: booking_calendar_node
     image: booking_calendar_node_image
-    restart: always
+    # restart: always
     # Creating a custom image
     build:
       # Location to the Dockerfile

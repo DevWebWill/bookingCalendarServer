@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
 
 export default function verifyJWT(req, res, next) {
+    console.log(req.headers['authorization'])
     const token = req.headers['authorization']?.split(' ')[1];
-    console.log(token)
+    console.log("Token", token)
     if(token) {
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if(err) return res.json({
+                status: "Failed",
                 isLogin: false,
                 message: "Falló la autenticación"
             })
@@ -15,6 +17,6 @@ export default function verifyJWT(req, res, next) {
             next()
         })
     } else {
-        res.json({message: "Token incorrecto", isLogin: false})
+        res.json({ status: "Failed", message: "Token incorrecto", isLogin: false})
     }
 }

@@ -9,17 +9,17 @@ import authRoutes from "./Auth.routes.js"
 import taskRoutes from "./Task.routes.js"
 
 import { list } from '../controllers/Task.controller.js';
-import createSlug from '../controllers/utils.js';
+import { createSlug } from '../controllers/utils.js';
 import User from '../models/User.model.js';
 
 router.get('/', async (req, res) => {
     //res.send('Prueba para Jenkins!')
-    let user = await User.findOne({ email: 'pepe@gmail.com'});
+    //let user = await User.findOne({ email: 'pepe@gmail.com'});
     
     //res.send(users)
-    console.log(user);
+    console.log('OK');
 
-    res.send(user)
+    res.send({ status: "Success" })
 });
 
 //router.use("/demo", demoRoutes);
@@ -28,11 +28,11 @@ router.get('/', async (req, res) => {
 
 router.use('/auth', authRoutes);
 
-router.get('/api/:company/tasks/list', (req, res) => {
+/* router.get('/api/:company/tasks/list', (req, res) => {
     let company = req.params.company;
     company = createSlug(company);
     list(req, res, company);
-});
+}); */
 
 router.use('/api/:company/tasks', taskRoutes);
 

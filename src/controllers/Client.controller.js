@@ -13,11 +13,6 @@ export const create = async (req, res) => {
 
     //Chequea si el usuario existe
     const takenEmail = await Client.exists({email: email}).exec();
-
-    /* if(takenEmail) {
-        return res.status(409).json({'message': 'Este usuario ya existe'});
-    } */
-
  
     const dbClient = new Client({
         name: name,

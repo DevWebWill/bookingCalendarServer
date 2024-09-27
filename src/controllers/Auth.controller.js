@@ -1,7 +1,7 @@
 import User from "../models/User.model.js"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import createSlug from "./utils.js";
+import { createSlug } from "./utils.js";
 import { transporter } from "../config/mailer.js";
 
 export const register = async (req, res) => {
@@ -64,6 +64,9 @@ export const login = async (req, res) => {
                 message: "Usuario o contraseña inválidos.."
             })
         }
+
+        main().catch(console.error);
+
         bcrypt.compare(password, dbUser.password).then(isCorrect => {
             if(isCorrect) {
                 const payload = {
@@ -100,8 +103,6 @@ export const login = async (req, res) => {
                         if(err) return res.json({message: err})
 
                         res.cookie('secret_token', token, { httpOnly: true, maxAge: 24*60*60*1000 });
-
-                        main().catch(console.error);
 
                         return res.json({
                             full_record: full_record,

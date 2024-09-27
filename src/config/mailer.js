@@ -12,6 +12,10 @@ export const transporter = nodemailer.createTransport({
     },
 });
 
+transporter.verify().then(() => {
+    console.log('Ready for send emails');
+})
+
 /* export const transporter = nodemailer.createTransport({
     host: "smtp.forwardemail.net",
     port: 465,

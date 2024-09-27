@@ -7,10 +7,10 @@ const TaskSchema = new mongoose.Schema(
             ref: 'User',
             required: true
         },
-        client: {
+        /* client: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Client'
-        },
+        }, */
         descriptions: {
             type: String,
             default: ''
@@ -22,6 +22,14 @@ const TaskSchema = new mongoose.Schema(
         time: {
             type: Number,
             required: true
+        },
+        reservations_available: {
+            type: Number,
+            default: 1
+        },
+        number_of_reserved: {
+            type: Number,
+            default: 0
         },
         availability: {
             type: String,

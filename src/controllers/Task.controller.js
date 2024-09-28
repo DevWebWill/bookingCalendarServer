@@ -98,6 +98,8 @@ export const update = async (req, res) => {
 export const deleteTask = async (req, res) => {
     let body = req.body;
 
+    console.log(body)
+
     const Task = mongoose.model('Task');
 
     Task.findOneAndRemove({ _id: body.id, user: body.user }).then(() => {

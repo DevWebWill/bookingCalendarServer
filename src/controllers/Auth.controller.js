@@ -92,7 +92,6 @@ export const login = async (req, res) => {
                 res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 24*60*60*1000 });
 
                 let full_record = dbUser.full_record;
-                //console.log(full_record);
                 
                 //Token de acceso
                 jwt.sign(
@@ -252,7 +251,6 @@ async function main() {
         html: "<b>Se ha iniciado sesión en Booxita.</b>", // html body
     });
   
-    //console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   
     //

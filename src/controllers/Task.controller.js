@@ -7,6 +7,7 @@ import User from "../models/User.model.js";
 
 // Lista todos los horarios disponibles
 export const list = async (req, res, company) => {
+    console.log('heeeeey')
     const date = new Date();
     const rangeDate = req.query.range_date || formatDateToDDMMYYYY(date) + "-" + formatDateToDDMMYYYY(new Date(date.getTime() + (8 * 24 * 60 * 60 * 1000)));
     
@@ -53,7 +54,6 @@ export const create = async (req, res) => {
     for (const element of docs) {
         try {
             const item = await Task.exists({user: element.user, date: element.date}).exec();
-            console.log('Existe: ', item);
             if (item) {
                 existenceArray.push(element);
             } else {
@@ -97,8 +97,6 @@ export const update = async (req, res) => {
 // Elimina un horario de reserva. TO DO Verificar que no este reservado ya
 export const deleteTask = async (req, res) => {
     let body = req.body;
-
-    console.log(body)
 
     const Task = mongoose.model('Task');
 

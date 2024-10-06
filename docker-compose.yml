@@ -15,12 +15,13 @@ services:
     ports:
         # External port:Internal port
       - 3000:3000
+      - "9229:9229"
     # links:
     #   - mongo
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    
+    command: npm run start:debug
     # working_dir: /usr/src/app
     # volumes:
     #   - ./:/usr/src/app

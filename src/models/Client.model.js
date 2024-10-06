@@ -20,7 +20,6 @@ const ClientSchema = new mongoose.Schema(
             //]
             validate: {
                 validator: function(val) {
-                    console.log("+++++++++++++++++++++++++++++++++++++++", val)
                     if(!val) {
                         return true;
                     }

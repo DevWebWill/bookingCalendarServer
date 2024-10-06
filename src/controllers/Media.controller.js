@@ -59,7 +59,6 @@ export const uploadImages = async (req, res) => {
                 console.error(err);
                 res.status(500).send('Error al guardar la imagen en el servidor');
             } else {
-                console.log('Imagen guardada:', filename);
                 res.status(200).send('Imagen recibida y guardada correctamente');
             }
         });

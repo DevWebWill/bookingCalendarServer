@@ -1,5 +1,5 @@
 # Version of Docker-compose
-version: '1.0'
+
 services:
   # Service name
   node:

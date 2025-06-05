@@ -34,7 +34,8 @@ const TaskSchema = new mongoose.Schema(
         availability: {
             type: String,
             required: true
-        }
+        },
+        clients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Client' }]
     },
     {
         timestamps: true

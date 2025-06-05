@@ -30,7 +30,8 @@ export const list = async (req, res, company) => {
                     $eq: [{ $year: "$date" }, year],
                     $eq: [{ $month: "$date" }, month]
                 } */
-            }).then(data => {
+            }).populate('clients').then(data => {
+                console.log(data)
                 if(!data) {
                     return res.status(404).json({'message': 'No se encontró el registro.'});
                 } else {
@@ -121,8 +122,6 @@ export const booking = async (req, res) => {
         return res.status(422).json({'message': 'Faltan parámetros'});
     }
 
-    
-
     const filter = { 
         _id: booking,
         $expr: {
@@ -153,12 +152,14 @@ export const booking = async (req, res) => {
     if(doc.reservations_available > doc.number_of_reserved + number_res) {
         update = { 
             $inc: { 'number_of_reserved': number_res },
-            availability: 'Disponible'
+            availability: 'Disponible',
+            $addToSet: { clients: dbClient._id }
         };
     } else {
         update = { 
             $inc: { 'number_of_reserved': number_res },
-            availability: 'Ocupado'
+            availability: 'Ocupado',
+            $addToSet: { clients: dbClient._id }
         };
     }
     let docUpdate = await Task.findOneAndUpdate(filter, update, { new: true });
